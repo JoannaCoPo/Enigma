@@ -1,13 +1,16 @@
+require 'date'
 class Algorithm
   #potentially split into more classes (key, date, message)
-  attr_reader :alphabet,
+  attr_reader :message,
+              :alphabet,
               :key,
               :date
 
-  def initialize
+  def initialize(message)
+    @message = message
     @alphabet = nil
     @key = nil
-    @date = nil
+    @date = Date.today.strftime("%d%m%y").to_s
   end
 
   def create_alphabet
@@ -22,11 +25,8 @@ class Algorithm
     [0 , 1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
 
-  def create_date #date thing, Megan - IC
-    Time.new.strftime("%d%m%y").to_s
-  end
+  # def create_date #date thing, Megan - IC
+  #
+  #   # Time.new.strftime("%d%m%y").to_s
+  # end
 end
-
-
-# key: "02715",
-# date: "040895"
