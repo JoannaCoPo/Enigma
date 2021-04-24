@@ -13,7 +13,7 @@ class Algorithm #potentially split into more classes (key, date, message)
   end
 
   def numbers
-    Array.new(10) { |i| i }
+    Array.new(10) { |number| number }
     # [0 , 1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
 end
