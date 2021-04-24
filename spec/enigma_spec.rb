@@ -10,10 +10,24 @@ RSpec.describe Enigma do
   it 'encrypts' do                  #returns hash
     enigma = Enigma.new
     #MESSAGE + optional arg(key and date)
+    #if no key == optional, generate random key
+    #if no date == optional, if none given - use today's day
+    encrypted = {encryption: "encrypted string",
+                           key: "00000",
+                          date: "DDMMYY"}
+    expect(enigma.encrypt(message)).to eq(encrypted)
+  end
+
+  it 'decrypts' do                  #returns hash
+    enigma = Enigma.new
+    #MESSAGE + optional arg(key and date)
     #if no key, generate random key
-    #if no date, use today's day
-    expected = #hash
-    expect(enigma.encrypt(message)).to eq(expected)
+    #date == optional, if no date, use today's day
+    decrypted = enigma.decrypt(ciphertext, key, date = 000000)
+    expected = {decryption: "decrypted string",
+                           key: "00000",
+                          date: "DDMMYY}
+    expect(decrypted).to eq(expected)
   end
 
 
