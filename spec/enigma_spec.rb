@@ -1,5 +1,6 @@
 require 'rspec'
 require './lib/enigma'
+require './lib/algorithm'
 
 RSpec.describe Enigma do
   it 'exists' do
