@@ -17,4 +17,4 @@ def shift_d
   20
 end
 
-p a.rotate(20)[15]
+p a.rotate(0)[4]
