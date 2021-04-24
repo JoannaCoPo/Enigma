@@ -1,4 +1,5 @@
 class Algorithm
+  #potentially split into more classes (key, date, message)
   attr_reader :alphabet,
               :key,
               :date
