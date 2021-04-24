@@ -8,21 +8,15 @@ RSpec.describe Enigma do
     expect(enigma).to be_an_instance_of(Enigma)
   end
 
-  # it 'has attributes' do
+  # it 'receives message to encrypt' do
   #   enigma = Enigma.new
+  #   # algorithm = Algorithm.new("Hello World")
+  #   enigma.receive_message(message)
+  #   expect(eni/gma.original_message).to eq("Hello World")
   # end
-
-  it 'receives message to encrypt' do
-    enigma = Enigma.new
-    message = Message.new("Hello World")
-    # algorithm = Algorithm.new("Hello World")
-    enigma.receive_message(message)
-    expect(enigma.original_message).to eq("Hello World")
-  end
 
   xit 'has a character set' do
     enigma = Enigma.new
-    algorithm = Algorithm.new("Hello World")
     expected = ["a", "b", "c", "d", "e", "f", "g", "h", "i",
                 "j", "k", "l", "m", "n", "o", "p", "q", "r",
                 "s", "t", "u", "v", "w", "x", "y", "z", " "]
@@ -43,16 +37,14 @@ RSpec.describe Enigma do
   end
 
 
-  xit 'it encrypts' do                  #returns hash
+  it 'it encrypts' do
     enigma = Enigma.new
-    algorithm = Algorithm.new("Hello World")
-    #MESSAGE + optional arg(key and date)
-    #if no key == optional, generate random key
-    #if no date == optional, if none given - use today's day
-    expected = {encryption: "encrypted string",
-                           key: "00000",
-                          date: "DDMMYY"}
-    expect(enigma.encrypt(message)).to eq(expected)
+    expected =  {
+        encryption: "keder ohulw",
+        key: "02715",
+        date: "040895"
+      }
+    expect(enigma.encrypt("hello world", "02715", "040895")).to eq(expected)
   end
 
   xit 'it decrypts' do                  #returns hash

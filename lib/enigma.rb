@@ -1,13 +1,20 @@
 require 'date'
 class Enigma
-  attr_reader :original_message
+  attr_reader :message
 
   def initialize
-    @original_message = nil
+
   end
 
-  def receive_message(message)
-    @original_message = message.unencrypted_message #is this ok (LOD)
+  def encrypt(message, key = nil, date = Date.today.strftime("%d%m%y").to_i)
+    # make work with all args, then make
+    # work witout date then without date
   end
+
+  def decrypt(message, key, date = Date.today.strftime("%d%m%y").to_i)
+    
+  end
+
+
 
 end
