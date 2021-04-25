@@ -12,7 +12,7 @@ class Enigma
   end
 
   def decrypt(message, key, date = Date.today.strftime("%d%m%y").to_i)
-    
+
   end
 
 
