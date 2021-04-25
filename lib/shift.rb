@@ -2,12 +2,12 @@ require 'date'
 class Shift
   attr_reader :key_used,
               :date_used,
-              :shifts
+              :final_shifts
 
   def initialize
     @key_used = nil
     @date_used = nil
-    @shifts = nil
+    @final_shifts = nil
   end
 
   def generate_keys
@@ -19,7 +19,7 @@ class Shift
                       d: number.slice(3, 2)
                      }
     freeze = key_collection.transform_values(&:to_i)
-    @key_used = freeze.values
+    @key_used = number
     freeze #this is silly but I want this RV
   end
 
@@ -45,7 +45,7 @@ class Shift
   def generate_shifts
     keys = generate_keys
     offsets = generate_offsets
-    @shifts = {
+    @final_shifts = {
                 a: keys[:a] + offsets[:a],
                 b: keys[:b] + offsets[:b],
                 c: keys[:c] + offsets[:c],

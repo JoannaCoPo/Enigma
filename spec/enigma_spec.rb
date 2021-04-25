@@ -4,16 +4,27 @@ require './lib/shift'
 
 RSpec.describe Enigma do
   it 'exists' do
-    enigma = Enigma.new(shifts)
+    enigma = Enigma.new
     expect(enigma).to be_an_instance_of(Enigma)
+  end
+
+  it 'can add shifts collection' do
+    enigma = Enigma.new
+    shift1 = Shift.new
+    shift1.generate_shifts
+    enigma.add_shifts(shift1)
+    expect(enigma.shifts).to eq(shift1)
   end
 
   it 'has tools for encryption' do
     enigma = Enigma.new
-    shifts = Shift.new
-    shift_collection = shifts.generate_shifts
-    # require "pry"; binding.pry
+    shift1 = Shift.new
+    shift1.generate_shifts
+    enigma.add_shifts(shift1)
     expect(enigma.key_string).to be_an_instance_of(String)
+    expect(enigma.key_string.length).to eq(5)
+    expect(enigma.date_string).to be_an_instance_of(String)
+    expect(enigma.date_string.length).to eq(6)
   end
 
   xit 'has a character set' do
@@ -38,11 +49,14 @@ RSpec.describe Enigma do
   end
 
 
-  xit 'it encrypts' do
+  it 'it encrypts' do
     enigma = Enigma.new
     shifts = Shift.new
-    shifts.generate_shifts
-    require "pry"; binding.pry
+    enigma = Enigma.new
+    shift1 = Shift.new
+    shift1.generate_shifts
+    enigma.add_shifts(shift1)
+require "pry"; binding.pry
     expected =  {
         encryption: "keder ohulw",
         key: "02715",
@@ -64,3 +78,5 @@ RSpec.describe Enigma do
     expect(decrypted).to eq(expected)
   end
 end
+
+#HELPERS TO TEST

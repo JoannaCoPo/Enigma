@@ -58,6 +58,6 @@ RSpec.describe Shift do
   it 'stores shift collection used in encryption' do
     shift = Shift.new
     expected = shift.generate_shifts
-    expect(shift.shifts).to eq(expected)
+    expect(shift.final_shifts).to eq(expected)
   end
 end
