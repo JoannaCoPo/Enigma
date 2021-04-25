@@ -13,6 +13,7 @@ RSpec.describe Enigma do
     shift1 = Shift.new
     shift1.generate_shifts
     enigma.add_shifts(shift1)
+    require "pry"; binding.pry
     expect(enigma.shifts).to eq(shift1)
   end
 
