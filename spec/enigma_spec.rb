@@ -15,6 +15,8 @@ RSpec.describe Enigma do
   #   expect(eni/gma.original_message).to eq("Hello World")
   # end
 
+
+
   xit 'has a character set' do
     enigma = Enigma.new
     expected = ["a", "b", "c", "d", "e", "f", "g", "h", "i",
