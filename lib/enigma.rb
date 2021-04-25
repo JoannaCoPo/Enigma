@@ -24,9 +24,9 @@ class Enigma
     ("a".."z").to_a << " "
   end
 
-  # def character_location
-  #   alphabet.each_with_object({}) {|key, value| value[key] = alphabet.index(key)}
-  # end
+  def character_locations
+    alphabet.each_with_object({}) {|key, value| value[key] = alphabet.index(key)}
+  end
 
   def encryption_shifts
     @shifts.final_shifts
@@ -36,36 +36,38 @@ class Enigma
     encryption_shifts.values
   end
 
+  def message_to_array
+    @original_message.split(//)
+  end
+
+  def replace_every_fourth ##try with just map
+    message_to_array.map.with_index do |letter, index|
+      index % 4 == 0 ? letter.replace("k") : letter #helper for replace(helper)
+    end
+  end
+
+  def message_original_index #try with just map
+    message_to_array.map.with_index do |letter, index|
+      character_locations.fetch(letter)
+    end #array
+  end
+
+#opportunity for module?
+  def shift_a_rotate
+    a = final_shift_integers[0]
+  end
+
+  def shift_b_rotate
+    b = final_shift_integers[1]
+  end
+
+  def shift_c_rotate
+    b = final_shift_integers[2]
+  end
+
+  def shift_d_rotate
+    b = final_shift_integers[3]
+  end
+
 
 end
-
-
-
-
-#   def message_to_array
-#     @original_message.split(//)
-#   end
-#
-#   def encrypt_helper1
-#     message_to_array
-#   end
-#
-#   def encrypted_string
-#     @original_message #string
-#     encryption_shifts #hash
-#     # alphabet.rotate(SHIFT)[ORIGINAL INDEX]
-#   end
-#
-#   def encrypt(message, key = nil, date = Date.today.strftime("%d%m%y").to_i)
-#     @original_message = message
-#     encrypted_string =
-#     {
-#       encryption: encrypted_message,
-#       key: key,
-#       date: date
-#     }
-#   end
-#
-#   def decrypt(message, key, date = Date.today.strftime("%d%m%y").to_i)
-#   end
-# end

@@ -28,7 +28,7 @@ end
 def encrypt_helper1
   array = @original_message.split(//)
   array.map.with_index do |letter, index|
-    # index % 4 == 0 ? letter.SHIFT_ROTATION : letter
+    index % 4 == 0 ? letter.SHIFT_ROTATION : letter
   end
 end
 
@@ -52,14 +52,15 @@ def shift_d
 
 end
 
-# FINAL SHIFTS
-#   A: 3
-#   B: 27
-#   C: 73
-#   D: 20
-#   message -  "H e  l  l  o    W  o  r l  d"
-#               A B  C  D  A  B C  D  A B  C
-#               3 27 73 20 3 27 73 20 3 27 73
+FINAL SHIFTS
+  A: 3
+  B: 27
+  C: 73
+  D: 20
+  message -  "H e  l  l  o    W  o  r l  d"
+              A B  C  D  A  B C  D  A B  C
+              3 27 73 20 3 27 73 20 3 27 73
+
 #['a', 'b'].each_with_object({}) { |k, h| h[k] = k.upcase }
 # a = ("a".."z").to_a << " "
 #
@@ -80,3 +81,32 @@ end
 # end
 #
 # p a.rotate(0)[4]
+
+
+#   def encrypt_helper1
+#     message_to_array
+#   end
+#
+#   def encrypted_string
+#     @original_message #string
+#     encryption_shifts #hash
+#     # alphabet.rotate(SHIFT)[ORIGINAL INDEX]
+#   end
+#
+#   def encrypt(message, key = nil, date = Date.today.strftime("%d%m%y").to_i)
+#     @original_message = message
+#     encrypted_string =
+#     {
+#       encryption: encrypted_message,
+#       key: key,
+#       date: date
+#     }
+#   end
+#
+#   def decrypt(message, key, date = Date.today.strftime("%d%m%y").to_i)
+#   end
+# end
+
+def message_to_array
+  @original_message.split(//)
+end
