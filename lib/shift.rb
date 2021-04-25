@@ -1,20 +1,13 @@
 require 'date'
 class Shift
   attr_reader :key_used,
-              :date,
+              :date_used,
               :shifts
 
   def initialize
     @key_used = nil
-    @date = Date.today.strftime("%d%m%y")
-  end
-
-  def numbers
-    Array.new(10) { |number| number }
-  end
-
-  def create_random_number
-    numbers.sample(5).join
+    @date_used = nil
+    @shifts = nil
   end
 
   def generate_keys
@@ -42,20 +35,30 @@ class Shift
   end
 
   def offset_helper
-    date_squared = @date.to_i ** 2
+    date = Date.today.strftime("%d%m%y")
+    @date_used = date
+    date_squared = date.to_i ** 2
     string = date_squared.to_s
     string.slice(-4, 4)
   end
 
-  def shifts
+  def generate_shifts
     keys = generate_keys
     offsets = generate_offsets
-    {
-      a: keys[:a] + offsets[:a],
-      b: keys[:b] + offsets[:b],
-      c: keys[:c] + offsets[:c],
-      d: keys[:d] + offsets[:d]
-    }
+    @shifts = {
+                a: keys[:a] + offsets[:a],
+                b: keys[:b] + offsets[:b],
+                c: keys[:c] + offsets[:c],
+                d: keys[:d] + offsets[:d]
+              }
+  end
+
+  def numbers
+    Array.new(10) { |number| number }
+  end
+
+  def create_random_number
+    numbers.sample(5).join
   end
 
 

@@ -9,6 +9,8 @@ RSpec.describe Shift do
     expect(shift).to be_an_instance_of(Shift)
   end
 
+  #ATTRIBUTES(key_used, date_used, shifts)
+
   it 'has numbers to form random code' do
     shift = Shift.new
     expected = [0 , 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -23,7 +25,7 @@ RSpec.describe Shift do
     # expect(shift.key).to eq(02715)
   end
 
-  it 'has todays date' do
+  xit 'has todays date' do
     allow(Date).to receive(:today).and_return(Date.new(2021,4,23))
     shift = Shift.new
     expect(shift.date).to eq("230421")
@@ -36,7 +38,6 @@ RSpec.describe Shift do
     # allow(key1).to receive(:key).and_return(02715)
     # shift = double()
     # allow(shift).to receive(:create_random_number).with(32751)
-# require "pry"; binding.pry
     expect(shift.generate_keys).to be_an_instance_of(Hash)
     # expected = {:a=>[0, 2], :b=>[2, 7], :c=>[7, 1], :d=>[1, 5]}
     # expect(shift1).to eq(expected)
@@ -46,5 +47,17 @@ RSpec.describe Shift do
     shift = Shift.new
     expected = shift.generate_keys.values
     expect(shift.key_used).to eq(expected)
+  end
+
+  it 'stores date used in encryption' do
+    shift = Shift.new
+    shift.generate_shifts
+    expect(shift.date_used).to be_an_instance_of(String) #need better assertion
+  end
+
+  it 'stores shift collection used in encryption' do
+    shift = Shift.new
+    expected = shift.generate_shifts
+    expect(shift.shifts).to eq(expected)
   end
 end
