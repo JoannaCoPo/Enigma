@@ -1,21 +1,20 @@
 require 'rspec'
 require './lib/enigma'
-require './lib/message'
+require './lib/shift'
 
 RSpec.describe Enigma do
   it 'exists' do
-    enigma = Enigma.new
+    enigma = Enigma.new(shifts)
     expect(enigma).to be_an_instance_of(Enigma)
   end
 
-  # it 'receives message to encrypt' do
-  #   enigma = Enigma.new
-  #   # algorithm = Algorithm.new("Hello World")
-  #   enigma.receive_message(message)
-  #   expect(eni/gma.original_message).to eq("Hello World")
-  # end
-
-
+  it 'has tools for encryption' do
+    enigma = Enigma.new
+    shifts = Shift.new
+    shift_collection = shifts.generate_shifts
+    # require "pry"; binding.pry
+    expect(enigma.key_string).to be_an_instance_of(String)
+  end
 
   xit 'has a character set' do
     enigma = Enigma.new
@@ -39,8 +38,11 @@ RSpec.describe Enigma do
   end
 
 
-  it 'it encrypts' do
+  xit 'it encrypts' do
     enigma = Enigma.new
+    shifts = Shift.new
+    shifts.generate_shifts
+    require "pry"; binding.pry
     expected =  {
         encryption: "keder ohulw",
         key: "02715",

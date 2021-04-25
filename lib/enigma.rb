@@ -1,9 +1,9 @@
 require 'date'
 class Enigma
-  attr_reader :message
+  attr_reader :key_string
 
-  def initialize
-
+  def initialize(shifts = nil)
+    @key_string = shift.key_used.to_s
   end
 
   def encrypt(message, key = nil, date = Date.today.strftime("%d%m%y").to_i)
