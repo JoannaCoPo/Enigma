@@ -13,7 +13,6 @@ RSpec.describe Enigma do
     shift1 = Shift.new
     shift1.generate_shifts
     enigma.add_shifts(shift1)
-    require "pry"; binding.pry
     expect(enigma.shifts).to eq(shift1)
   end
 
@@ -28,7 +27,7 @@ RSpec.describe Enigma do
     expect(enigma.date_string.length).to eq(6)
   end
 
-  xit 'has a character set' do
+  it 'has a character set' do
     enigma = Enigma.new
     expected = ["a", "b", "c", "d", "e", "f", "g", "h", "i",
                 "j", "k", "l", "m", "n", "o", "p", "q", "r",
@@ -36,29 +35,21 @@ RSpec.describe Enigma do
     expect(enigma.alphabet).to eq(expected)
   end
 
-  it 'has locations for characters in set' do
+  it 'can access the final shifts for encryption' do
     enigma = Enigma.new
-    expected = {"a"=>0, "b"=>1, "c"=>2, "d"=>3, "e"=>4, "f"=>5,
-                "g"=>6, "h"=>7, "i"=>8, "j"=>9, "k"=>10, "l"=>11,
-                "m"=>12, "n"=>13, "o"=>14, "p"=>15, "q"=>16, "r"=>17,
-                "s"=>18, "t"=>19, "u"=>20, "v"=>21, "w"=>22, "x"=>23,
-                "y"=>24, "z"=>25, " "=>26}
-    expect(enigma.character_location).to eq(expected)
+    shift1 = Shift.new
+    shift1.generate_shifts
+    enigma.add_shifts(shift1)
+    expect(enigma.encryption_shifts).to eq(shift1.final_shifts)
   end
 
-  xit 'has a key for encryption' do
+  it 'separates messages letters for encryption process' do
     enigma = Enigma.new
-    algorithm = Algorithm.new("Hello World")
-    #MOCK/STUB
-    expect(enigma.key.length).to eq(5)
+    shift1 = Shift.new
+    shift1.generate_shifts
+    enigma.add_shifts(shift1)
+    expect(enigma.message).to eq(shift1.final_shifts)
   end
-
-  xit 'has a date for encryption' do
-    enigma = Enigma.new
-    algorithm = Algorithm.new("Hello World")
-    expect(enigma.message).to eq("Hello World")
-  end
-
 
   xit 'it encrypts' do
     enigma = Enigma.new
@@ -67,7 +58,6 @@ RSpec.describe Enigma do
     shift1 = Shift.new
     shift1.generate_shifts
     enigma.add_shifts(shift1)
-require "pry"; binding.pry
     expected =  {
         encryption: "keder ohulw",
         key: "02715",

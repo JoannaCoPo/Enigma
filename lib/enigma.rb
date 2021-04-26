@@ -24,22 +24,13 @@ class Enigma
     ("a".."z").to_a << " "
   end
 
-  def character_locations
-    alphabe .each_with_object({}) {|key, value| value[key] = alphabet.index(key)}
-  end
-
   def encryption_shifts
     @shifts.final_shifts
   end
 
-
-  def message_to_array
+  def message_to_array(string)
     @original_message.split(//)
   end
-
-
-
-
 #TRY MOUDLO
 #alphabet[(shift + original_index) % alphabet.length]
   def encrypt_string
