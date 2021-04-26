@@ -99,22 +99,30 @@ RSpec.describe Enigma do
         date: "040895"
       }
       # require "pry"; binding.pry
-      # expect(enigma.encrypt(message_string).length).to eq(11)
-    expect(enigma.encrypt(message_string, "02715", "040895")).to eq("keder ohulw")
+    # expect(enigma.encrypt(message_string).length).to eq(11)
+    # expect(enigma.encrypt(message_string, "02715", "040895")).to eq("keder ohulw")
+    expect(enigma.encrypt(message_string, "02715", "040895")).to eq(expected)
+
   end
 
-  xit 'it decrypts' do                  #returns hash
+  it 'it decrypts' do                  #returns hash
     enigma = Enigma.new
+    enigma = Enigma.new
+    # shift1 = Shift.new
+    message1 = Message.new("Hello World")
+    message_string = message1.message_to_encrypt
+    enigma.encrypt(message_string, "02715", "040895")
     #MESSAGE + optional arg(key and date)
     #if no key, generate random key
     #date == optional, if no date, use today's day
-    decrypted = enigma.decrypt(ciphertext, key, date = 000000)
-    expected = {decryption: "decrypted string",
-                key: "00000",
-                date: "DDMMYY"}
+    decrypted = enigma.decrypt("keder ohulw", "02715", "040895")
+    expected = {decryption: "hello world",
+                key: "02715",
+                date: "040895"}
 
     expect(decrypted).to eq(expected)
   end
+
 end
 
 #HELPERS TO TEST
