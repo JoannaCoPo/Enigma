@@ -51,15 +51,13 @@ RSpec.describe Enigma do
     expect(enigma.encryption_shifts).to eq(shift1.final_shifts)
   end
 
-  xit 'separates messages letters for encryption process' do
+  it 'separates messages letters and preps for lowercase translation' do
     enigma = Enigma.new
-    shift1 = Shift.new
     message1 = Message.new("Hello World")
-    shift1.generate_shifts
+    message1 = Message.new("Hello World")
+    enigma.add_message(message1)
     expected = ["h", "e", "l", "l", "o", " ", "w", "o", "r", "l", "d"]
-    require "pry"; binding.pry
-    argument = message1.message_to_encrypt
-    expect(message1.message_to_encrypt).to eq(expected)
+    expect(enigma.message_to_array).to eq(expected)
   end
 
   xit 'it encrypts' do

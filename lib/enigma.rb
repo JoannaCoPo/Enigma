@@ -32,8 +32,8 @@ class Enigma
      @shifts.final_shifts
    end
 
-   def message_to_array(string)
-     @original_message.split(//)
+   def message_to_array
+     @original_message.downcase.split(//)
    end
 
 #alphabet[(shift + original_index) % alphabet.length]
