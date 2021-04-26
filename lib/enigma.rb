@@ -1,5 +1,7 @@
 require 'date'
+require_relative 'shiftable'
 class Enigma
+  include Shiftable
   attr_reader :shifts,
               :original_message,
               :encrypted_strings
@@ -31,7 +33,8 @@ class Enigma
    end
 
    def encryption_shifts
-     @shifts.final_shifts
+     # @shifts.final_shifts
+     @shifts
    end
 
    def message_to_array
@@ -57,13 +60,14 @@ class Enigma
 
   def encrypt(message, key = nil, date = Date.today.strftime("%d%m%y").to_i)
     @original_message = message
-    if key == nil
-
+    if key && date != nil
+      @shifts = generate_shifts_from_args(key, date)
+    else
+      @shifts = generate_shifts
+    end
     encrypt_strings
     join_strings
   end
-
-  def generate_key
 
   def encryp_feedback
     {

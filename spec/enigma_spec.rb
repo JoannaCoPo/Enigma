@@ -9,7 +9,7 @@ RSpec.describe Enigma do
     expect(enigma).to be_an_instance_of(Enigma)
   end
 
-  it 'can add shifts collection' do
+  xit 'can add shifts collection' do
     enigma = Enigma.new
     shift1 = Shift.new
     shift1.generate_shifts
@@ -43,7 +43,7 @@ RSpec.describe Enigma do
     expect(enigma.alphabet).to eq(expected)
   end
 
-  it 'can access the final shifts for encryption' do
+  xit 'can access the final shifts for encryption' do
     enigma = Enigma.new
     shift1 = Shift.new
     shift1.generate_shifts
@@ -84,13 +84,13 @@ RSpec.describe Enigma do
 
   it 'it encrypts message' do
     enigma = Enigma.new
-    shift1 = Shift.new
+    # shift1 = Shift.new
     message1 = Message.new("Hello World")
     message_string = message1.message_to_encrypt
     # key = enigma.key_string
     # date = enigma.date_string
-    shift1.generate_shifts
-    enigma.add_shifts(shift1)
+    # shift1.generate_shifts
+    # enigma.add_shifts(shift1)
     # enigma.add_message(message1)
     # enigma.encrypt_strings
     expected =  {
@@ -98,9 +98,9 @@ RSpec.describe Enigma do
         key: "02715",
         date: "040895"
       }
-      require "pry"; binding.pry
-      expect(enigma.encrypt(message_string).length).to eq(11)
-    # expect(enigma.encrypt(message_string, "02715", "040895")).to eq(expected)
+      # require "pry"; binding.pry
+      # expect(enigma.encrypt(message_string).length).to eq(11)
+    expect(enigma.encrypt(message_string, "02715", "040895")).to eq("keder ohulw")
   end
 
   xit 'it decrypts' do                  #returns hash
