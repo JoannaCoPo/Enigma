@@ -1,6 +1,7 @@
 require 'rspec'
 require './lib/enigma'
 require './lib/shift'
+require './lib/message'
 
 RSpec.describe Enigma do
   it 'exists' do
@@ -14,6 +15,13 @@ RSpec.describe Enigma do
     shift1.generate_shifts
     enigma.add_shifts(shift1)
     expect(enigma.shifts).to eq(shift1)
+  end
+
+  it 'can add a message to encrypt' do
+    enigma = Enigma.new
+    message1 = Message.new("Hello World")
+    enigma.add_message(message1)
+    expect(enigma.original_message).to eq("Hello World")
   end
 
   it 'has tools for encryption' do
@@ -43,12 +51,15 @@ RSpec.describe Enigma do
     expect(enigma.encryption_shifts).to eq(shift1.final_shifts)
   end
 
-  it 'separates messages letters for encryption process' do
+  xit 'separates messages letters for encryption process' do
     enigma = Enigma.new
     shift1 = Shift.new
+    message1 = Message.new("Hello World")
     shift1.generate_shifts
-    enigma.add_shifts(shift1)
-    expect(enigma.message).to eq(shift1.final_shifts)
+    expected = ["h", "e", "l", "l", "o", " ", "w", "o", "r", "l", "d"]
+    require "pry"; binding.pry
+    argument = message1.message_to_encrypt
+    expect(message1.message_to_encrypt).to eq(expected)
   end
 
   xit 'it encrypts' do
