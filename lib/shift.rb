@@ -46,11 +46,11 @@ class Shift
     keys = generate_keys
     offsets = generate_offsets
     @final_shifts = {
-                a: keys[:a] + offsets[:a],
-                b: keys[:b] + offsets[:b],
-                c: keys[:c] + offsets[:c],
-                d: keys[:d] + offsets[:d]
-              }
+                      a: keys[:a] + offsets[:a],
+                      b: keys[:b] + offsets[:b],
+                      c: keys[:c] + offsets[:c],
+                      d: keys[:d] + offsets[:d]
+                    }
   end
 
   def numbers
@@ -60,6 +60,4 @@ class Shift
   def create_random_number
     numbers.sample(5).join
   end
-
-
 end
