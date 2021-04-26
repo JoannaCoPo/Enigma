@@ -32,54 +32,25 @@ class Enigma
     @shifts.final_shifts
   end
 
-  def final_shift_integers
-    encryption_shifts.values
-  end
 
   def message_to_array
     @original_message.split(//)
   end
 
+
+
+
 #TRY MOUDLO
 #alphabet[(shift + original_index) % alphabet.length]
-
-  def replace_every_fourth ##try with just map
-    message_to_array.map.with_index do |letter, index|
-      index % 4 == 0 ? letter.replace("k") : letter #helper for replace(helper)
+  def encrypt_string
+    results = []
+    message_to_array.each_with_index do |letter, index|
+      shift = encryption_shifts.values[ index % 4]
+      original_index = alphabet.find_index(letter)
+      new_letter = alphabet[(shift + original_index) % alphabet.length]
+      results << new_letter
     end
+    results
   end
-
-  def message_original_index #try with just map
-    message_to_array.map.with_index do |letter, index|
-      character_locations.fetch(letter)
-    end #array
-  end
-
-  def message_lettes_with_original_index
-    message_to_array.map.with_object({}) do |letter, h|
-      indices.map do |num|
-        h[letter] = num if indices.index(num) == message_to_array.index(letter)
-      end
-    end
-  end
-
-#opportunity for module?
-  def shift_a_rotate
-    a = final_shift_integers[0]
-    alphabet.rotate(a)[]
-  end
-
-  def shift_b_rotate
-    b = final_shift_integers[1]
-  end
-
-  def shift_c_rotate
-    b = final_shift_integers[2]
-  end
-
-  def shift_d_rotate
-    b = final_shift_integers[3]
-  end
-
 
 end

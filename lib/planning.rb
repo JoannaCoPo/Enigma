@@ -107,6 +107,16 @@ FINAL SHIFTS
 #   end
 # end
 
+
+
+
+message_to_array.each_with_index do |letter, index|
+  shift  = [3, 27, 73, 20, 3, 27, 73, 20, 3, 27, 73]
+  original_index = alphabet.find_index(letter)
+   new_letter = alphabet[(shift + original_index) % alphabet.length]
+   results << new_letter
+ end
+
 def message_to_array
   @original_message.split(//)
 end
