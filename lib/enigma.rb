@@ -25,7 +25,7 @@ class Enigma
   end
 
   def character_locations
-    alphabet.each_with_object({}) {|key, value| value[key] = alphabet.index(key)}
+    alphabe .each_with_object({}) {|key, value| value[key] = alphabet.index(key)}
   end
 
   def encryption_shifts
@@ -40,6 +40,9 @@ class Enigma
     @original_message.split(//)
   end
 
+#TRY MOUDLO
+#alphabet[(shift + original_index) % alphabet.length]
+
   def replace_every_fourth ##try with just map
     message_to_array.map.with_index do |letter, index|
       index % 4 == 0 ? letter.replace("k") : letter #helper for replace(helper)
@@ -52,9 +55,18 @@ class Enigma
     end #array
   end
 
+  def message_lettes_with_original_index
+    message_to_array.map.with_object({}) do |letter, h|
+      indices.map do |num|
+        h[letter] = num if indices.index(num) == message_to_array.index(letter)
+      end
+    end
+  end
+
 #opportunity for module?
   def shift_a_rotate
     a = final_shift_integers[0]
+    alphabet.rotate(a)[]
   end
 
   def shift_b_rotate
