@@ -1,13 +1,11 @@
 require 'date'
 class KeyGenerator
   attr_reader :key_used,
-              :date_used,
-              :final_shifts
+              :keys_generated
 
   def initialize
     @key_used = nil
-    @date_used = nil
-    @final_shifts = nil
+    @keys_generated = nil
   end
 
   def numbers
@@ -27,7 +25,7 @@ class KeyGenerator
                       c: number.slice(2, 2),
                       d: number.slice(3, 2)
                      }
-    freeze = key_collection.transform_values(&:to_i)
+    @keys_generated = key_collection.transform_values(&:to_i)
   end
 
   def generate_keys_from_args(key)
@@ -38,7 +36,7 @@ class KeyGenerator
                       c: number.slice(2, 2),
                       d: number.slice(3, 2)
                      }
-    key_collection.transform_values(&:to_i)
+    @keys_generated = key_collection.transform_values(&:to_i)
   end
 
 

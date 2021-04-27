@@ -1,9 +1,11 @@
 require 'date'
 class OffsetGenerator
-  attr_reader :todays_date
+  attr_reader :todays_date,
+              :offsets_generated
 
   def initialize
     @date_used = Date.today.strftime("%d%m%y")
+    @offsets_generated = nil
   end
 
   def todays_date
@@ -20,7 +22,6 @@ class OffsetGenerator
   end
 
   def generate_offsets
-    # require "pry"; binding.pry
     offset = offset_helper
     offset_collection = {
                           a: offset[0],
@@ -32,7 +33,7 @@ class OffsetGenerator
                           # c: offset.slice(2, 2),
                           # d: offset.slice(3, 2)
                         }
-    freeze = offset_collection.transform_values(&:to_i)
+    @offsets_generated = offset_collection.transform_values(&:to_i)
   end
 
   def generate_offsets_from_args(date)
@@ -49,6 +50,6 @@ class OffsetGenerator
                           # c: offset.slice(2, 2),
                           # d: offset.slice(3, 2)
                         }
-    freeze = offset_collection.transform_values(&:to_i)
+    @offsets_generated = offset_collection.transform_values(&:to_i)
   end
 end
