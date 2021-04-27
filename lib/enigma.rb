@@ -1,7 +1,6 @@
 require 'date'
 class Enigma
   attr_reader :shifts,
-              :original_message,
               :encrypted_strings,
               :final_encryption,
               :key_used,
@@ -10,12 +9,11 @@ class Enigma
 
    def initialize
      @shifts = nil
-     @original_message = nil
      @encrypted_strings = nil
      @final_encryption = nil
      @key_used = nil
      @date_used = nil
-     @backward_shift = nil
+     # @backward_shift = nil
    end
 
    def receives_shifts(shift_generator)
@@ -30,30 +28,11 @@ class Enigma
      ("a".."z").to_a << " "
    end
 
-   def add_message(message)
-     @original_message = message
-   end
-
    # def encryption_shifts
    #   @shifts
    # end
 
-   def message_to_array
-     @original_message.downcase.split(//)
-   end
 
-#alphabet[(shift + original_index) % alphabet.length]
-
-  def encrypt_strings
-    results = []
-    message_to_array.each_with_index do |letter, index|
-      shift = @shifts.values[index % 4]
-      original_index = alphabet.find_index(letter)
-      new_letter = alphabet[(shift + original_index) % alphabet.length]
-      results << new_letter
-    end
-    @encrypted_strings = results
-  end
 
   def decrypt_strings
     results = []
@@ -66,19 +45,38 @@ class Enigma
     results.join
   end
 
-  def join_strings
-    @encrypted_strings.join
-  end
+
 
   def encrypt(message, key = nil, date = Date.today.strftime("%d%m%y").to_i)
-    @original_message = message
-    if key && date != nil
-      @key_used = key
-      @date_used = date
-    else
-      encrypt_without_key_date
+    key ||= KeyGenerator.new.create_random_number
+    @key_used = key
+    @date_used = date
+    encryption_feedback(message)
+  end
+
+  def encryption_feedback(message)
+    encrypt_strings(message)
+    @final_encryption = join_strings
+    encryption_info
+  end
+
+  def encrypt_strings(message)
+    results = []
+    message_to_array(message).each_with_index do |letter, index|
+      shift = @shifts.values[index % 4]
+      original_index = alphabet.find_index(letter)
+      new_letter = alphabet[(shift + original_index) % alphabet.length]
+      results << new_letter
     end
-    encryption_feedback
+    @encrypted_strings = results
+  end
+
+  def message_to_array(message)
+    message.downcase.split(//)
+  end
+
+  def join_strings
+    @encrypted_strings.join
   end
 
   def decrypt(ciphertext, key, date = Date.today.strftime("%d%m%y").to_i)
@@ -105,11 +103,7 @@ class Enigma
     @date_used = todays_date
   end
 
-  def encryption_feedback
-    encrypt_strings
-    @final_encryption = join_strings
-    encryption_info
-  end
+
 
   def encrypted_message_to_array
     @final_encryption.split(//)

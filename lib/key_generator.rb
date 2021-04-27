@@ -13,8 +13,7 @@ class KeyGenerator
   end
 
   def create_random_number
-    random = numbers.sample(5).join
-    @key_used = random
+    numbers.sample(5).join    
   end
 
   def generate_keys

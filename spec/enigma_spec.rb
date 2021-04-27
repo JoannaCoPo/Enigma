@@ -7,12 +7,12 @@ require './lib/offset_generator'
 require './lib/message'
 
 RSpec.describe Enigma do
-  it 'exists' do
+  xit 'exists' do
     enigma = Enigma.new
     expect(enigma).to be_an_instance_of(Enigma)
   end
 
-  it 'can add shifts collection' do
+  xit 'can add shifts collection' do
     enigma = Enigma.new
     shift_generator = ShiftGenerator.new
     key_generator = KeyGenerator.new
@@ -42,7 +42,7 @@ RSpec.describe Enigma do
   #   expect(enigma.date_string.length).to eq(6)
   # end
 
-  it 'has a character set' do
+  xit 'has a character set' do
     enigma = Enigma.new
     expected = ["a", "b", "c", "d", "e", "f", "g", "h", "i",
                 "j", "k", "l", "m", "n", "o", "p", "q", "r",
@@ -50,7 +50,7 @@ RSpec.describe Enigma do
     expect(enigma.alphabet).to eq(expected)
   end
 
-  it 'can add a message to encrypt' do
+  xit 'can add a message to encrypt' do
     enigma = Enigma.new
     message1 = Message.new("Hello World")
     message  = message1.message_to_encrypt
@@ -58,7 +58,7 @@ RSpec.describe Enigma do
     expect(enigma.original_message).to eq("Hello World")
   end
 
-  it 'separates messages letters and preps for lowercase translation' do
+  xit 'separates messages letters and preps for lowercase translation' do
     enigma = Enigma.new
     message1 = Message.new("Hello World")
     message  = message1.message_to_encrypt
@@ -67,7 +67,7 @@ RSpec.describe Enigma do
     expect(enigma.message_to_array).to eq(expected)
   end
 
-  it 'it encrypts message' do
+  xit 'it encrypts message' do
     enigma = Enigma.new
     message1 = Message.new("Hello World")
     shift_generator = ShiftGenerator.new
@@ -88,7 +88,7 @@ RSpec.describe Enigma do
     expect(enigma.encrypt_strings).to eq(expected)
   end
 
-  it 'it returns encrypted characters to one string' do
+  xit 'it returns encrypted characters to one string' do
     enigma = Enigma.new
     message1 = Message.new("Hello World")
     shift_generator = ShiftGenerator.new
@@ -125,8 +125,6 @@ RSpec.describe Enigma do
     shift_generated = shift_generator.final_shifts
     enigma.receives_shifts(shift_generated)
     message  = message1.message_to_encrypt
-    enigma.add_message(message)
-    enigma.encrypt_strings
     expected = {
                 encryption: "keder ohulw",
                        key: "02715",
@@ -135,7 +133,7 @@ RSpec.describe Enigma do
     expect(enigma.encrypt(message, "02715", "040895")).to eq(expected)
   end
 
-  it 'it decrypts' do                  #returns hash
+  xit 'it decrypts' do                  #returns hash
     enigma = Enigma.new
     message1 = Message.new("Hello World")
     shift_generator = ShiftGenerator.new
