@@ -1,7 +1,5 @@
 require 'date'
-require_relative 'shiftable'
 class Enigma
-  include Shiftable
   attr_reader :shifts,
               :original_message,
               :encrypted_strings,
@@ -20,18 +18,10 @@ class Enigma
      @backward_shift = nil
    end
 
-   # def add_shifts(shift)
-   #   @shifts = shift
-   # end
+   def receives_shifts(shift_generator)
+     @shifts = shift_generator
+   end
 
-   # def add_message(message)
-   #   @original_message = message.message_to_encrypt
-   # end
-
-   # def key_string
-   #   @shifts.key_used
-   # end
-   #
    # def date_string
    #   @shifts.date_used
    # end
@@ -40,10 +30,13 @@ class Enigma
      ("a".."z").to_a << " "
    end
 
-   def encryption_shifts
-     # @shifts.final_shifts
-     @shifts
+   def add_message(message)
+     @original_message = message
    end
+
+   # def encryption_shifts
+   #   @shifts
+   # end
 
    def message_to_array
      @original_message.downcase.split(//)
@@ -54,7 +47,7 @@ class Enigma
   def encrypt_strings
     results = []
     message_to_array.each_with_index do |letter, index|
-      shift = encryption_shifts.values[index % 4]
+      shift = @shifts.values[index % 4]
       original_index = alphabet.find_index(letter)
       new_letter = alphabet[(shift + original_index) % alphabet.length]
       results << new_letter

@@ -1,10 +1,12 @@
 class ShiftGenerator
   attr_reader :keys,
-              :offsets
+              :offsets,
+              :final_shifts
 
   def initialize
     @keys = nil
     @offsets = nil
+    @final_shifts = nil
   end
 
   def receive_keys(keys_generated)
@@ -18,6 +20,7 @@ class ShiftGenerator
   def generate_shifts
     keys = @keys
     offsets = @offsets
+    @final_shifts =
                     {
                       a: keys[:a] + offsets[:a],
                       b: keys[:b] + offsets[:b],
@@ -30,7 +33,7 @@ class ShiftGenerator
   def generate_shifts_from_args(key, date)
     keys = generate_keys_from_args(key)
     offsets = generate_offsets_from_args(date)
-    # @final_shifts =
+    @final_shifts =
                     {
                       a: keys[:a] + offsets[:a],
                       b: keys[:b] + offsets[:b],
