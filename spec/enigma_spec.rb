@@ -7,12 +7,12 @@ require './lib/offset_generator'
 require './lib/message'
 
 RSpec.describe Enigma do
-  xit 'exists' do
+  it 'exists' do
     enigma = Enigma.new
     expect(enigma).to be_an_instance_of(Enigma)
   end
 
-  xit 'can add shifts collection' do
+  it 'can add shifts collection' do
     enigma = Enigma.new
     shift_generator = ShiftGenerator.new
     key_generator = KeyGenerator.new
@@ -31,7 +31,7 @@ RSpec.describe Enigma do
     expect(enigma.shifts).to eq(expected)
   end
 
-  xit 'has a character set' do
+  it 'has a character set' do
     enigma = Enigma.new
     expected = ["a", "b", "c", "d", "e", "f", "g", "h", "i",
                 "j", "k", "l", "m", "n", "o", "p", "q", "r",
@@ -39,24 +39,15 @@ RSpec.describe Enigma do
     expect(enigma.alphabet).to eq(expected)
   end
 
-  xit 'can add a message to encrypt' do
+  it 'separates messages letters and preps for lowercase translation' do
     enigma = Enigma.new
     message1 = Message.new("Hello World")
     message  = message1.message_to_encrypt
-    enigma.add_message(message)
-    expect(enigma.original_message).to eq("Hello World")
-  end
-
-  xit 'separates messages letters and preps for lowercase translation' do
-    enigma = Enigma.new
-    message1 = Message.new("Hello World")
-    message  = message1.message_to_encrypt
-    enigma.add_message(message)
     expected = ["h", "e", "l", "l", "o", " ", "w", "o", "r", "l", "d"]
-    expect(enigma.message_to_array).to eq(expected)
+    expect(enigma.message_to_array(message)).to eq(expected)
   end
 
-  xit 'it encrypts message' do
+  it 'it encrypts message' do
     enigma = Enigma.new
     message1 = Message.new("Hello World")
     shift_generator = ShiftGenerator.new
@@ -72,33 +63,11 @@ RSpec.describe Enigma do
     shift_generated = shift_generator.final_shifts
     enigma.receives_shifts(shift_generated)
     message  = message1.message_to_encrypt
-    enigma.add_message(message)
     expected = ["k", "e", "d", "e", "r", " ", "o", "h", "u", "l", "w"]
-    expect(enigma.encrypt_strings).to eq(expected)
+    expect(enigma.encrypt_strings(message)).to eq(expected)
   end
 
-  xit 'it returns encrypted characters to one string' do
-    enigma = Enigma.new
-    message1 = Message.new("Hello World")
-    shift_generator = ShiftGenerator.new
-    key_generator = KeyGenerator.new
-    offset_generator = OffsetGenerator.new
-    key_generator.generate_keys_from_args("02715")
-    keys_generated = key_generator.keys_generated
-    shift_generator.receive_keys(keys_generated)
-    offset_generator.generate_offsets_from_args("040895")
-    offsets_generated = offset_generator.offsets_generated
-    shift_generator.receive_offsets(offsets_generated)
-    shift_generator.generate_shifts
-    shift_generated = shift_generator.final_shifts
-    enigma.receives_shifts(shift_generated)
-    message  = message1.message_to_encrypt
-    enigma.add_message(message)
-    enigma.encrypt_strings
-    expect(enigma.join_strings).to eq("keder ohulw")
-  end
-
-  xit 'it encrypts message' do
+  it 'it encrypts message' do
     enigma = Enigma.new
     message1 = Message.new("Hello World")
     shift_generator = ShiftGenerator.new

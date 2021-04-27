@@ -24,12 +24,9 @@ class Enigma
     key ||= KeyGenerator.new.create_random_number
     @key_used = key
     @date_used = date
-    encryption_feedback(message)
-  end
-
-  def encryption_feedback(message)
+    # encryption_feedback(message)
     encrypt_strings(message)
-    @final_encryption = join_strings
+    @final_encryption = @encrypted_strings.join
     encryption_info
   end
 
@@ -46,10 +43,6 @@ class Enigma
 
   def message_to_array(message)
     message.downcase.split(//)
-  end
-
-  def join_strings
-    @encrypted_strings.join
   end
 
   def decrypt(ciphertext, key, date = Date.today.strftime("%d%m%y").to_i)
@@ -84,6 +77,5 @@ class Enigma
              key: @key_used,
             date: @date_used
     }
-
   end
 end
