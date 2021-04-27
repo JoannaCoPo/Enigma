@@ -13,7 +13,7 @@ class KeyGenerator
   end
 
   def create_random_number
-    numbers.sample(5).join
+    @key_used = numbers.sample(5).join
   end
 
   def generate_keys
@@ -27,7 +27,6 @@ class KeyGenerator
     @keys_generated = key_collection.transform_values(&:to_i)
   end
 
-#FIX TESTS TO REMOVE
   def generate_keys_from_args(key)
     number = key
     key_collection = {

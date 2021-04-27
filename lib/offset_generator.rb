@@ -7,7 +7,7 @@ class OffsetGenerator
   end
 
   def offset_helper
-    date = todays_date
+    date = Date.today.strftime("%d%m%y").to_i
     date_squared = date.to_i ** 2
     string = date_squared.to_s
     string.slice(-4, 4)

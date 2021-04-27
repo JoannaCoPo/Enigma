@@ -1,7 +1,6 @@
 require 'rspec'
 require './lib/offset_generator'
 
-
 RSpec.describe OffsetGenerator do
   it 'exists' do
     offset_generator = OffsetGenerator.new

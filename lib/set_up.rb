@@ -21,8 +21,6 @@ require_relative 'offset_generator'
     @shift_generator.generate_shifts
     shift_generated = @shift_generator.final_shifts
     @enigma.receives_shifts(shift_generated)
-    # message = @message1.message_to_encrypt
-    # @enigma.encrypt(message, "02715", "040895")
   end
 
   initiate_encryption

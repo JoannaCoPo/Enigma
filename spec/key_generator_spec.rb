@@ -23,7 +23,7 @@ RSpec.describe KeyGenerator do
   it 'stores random number as key for encryption' do
     key_generator = KeyGenerator.new
     random_number = key_generator.create_random_number
-    expect(key_generator.key_used.length).to eq(5)
+    expect(random_number.length).to eq(5)
   end
 
   it 'generates keys with random number key' do
