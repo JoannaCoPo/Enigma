@@ -16,9 +16,8 @@ class ShiftGenerator
   end
 
   def generate_shifts
-    keys = generate_keys
-    offsets = generate_offsets
-    # @final_shifts =
+    keys = @keys
+    offsets = @offsets
                     {
                       a: keys[:a] + offsets[:a],
                       b: keys[:b] + offsets[:b],

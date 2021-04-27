@@ -34,4 +34,39 @@ RSpec.describe ShiftGenerator do
     expect(shift_generator.offsets).to eq(expected)
   end
 
+  it 'generates shifts with date and key provided' do
+    shift_generator = ShiftGenerator.new
+    key_generator = KeyGenerator.new
+    offset_generator = OffsetGenerator.new
+
+    key_generator.generate_keys_from_args("02715")
+    keys_generated = key_generator.keys_generated
+    shift_generator.receive_keys(keys_generated)
+
+    offset_generator.generate_offsets_from_args("040895")
+    offsets_generated = offset_generator.offsets_generated
+    shift_generator.receive_offsets(offsets_generated)
+    expected = {
+                :a => 3, :b => 27, :c => 73, :d => 20
+               }
+    expect(shift_generator.generate_shifts).to eq(expected)
+  end
+
+  it 'generates shifts without date and key provided' do
+    shift_generator = ShiftGenerator.new
+    key_generator = KeyGenerator.new
+    offset_generator = OffsetGenerator.new
+    key_generator.create_random_number
+    key_generator.generate_keys
+    keys_generated = key_generator.keys_generated
+    shift_generator.receive_keys(keys_generated)
+
+    offset_generator.generate_offsets
+    offsets_generated = offset_generator.offsets_generated
+    shift_generator.receive_offsets(offsets_generated)
+
+    expect(shift_generator.generate_shifts).to be_an_instance_of(Hash)
+    expect(key_generator.generate_keys.values.length).to eq(4)
+  end
+
 end
