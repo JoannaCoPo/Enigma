@@ -24,7 +24,6 @@ class Enigma
     key ||= KeyGenerator.new.create_random_number
     @key_used = key
     @date_used = date
-    # encryption_feedback(message)
     encrypt_strings(message)
     @final_encryption = @encrypted_strings.join
     encryption_info
