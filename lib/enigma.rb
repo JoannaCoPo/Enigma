@@ -2,18 +2,14 @@ require 'date'
 class Enigma
   attr_reader :shifts,
               :encrypted_strings,
-              :final_encryption,
               :key_used,
-              :date_used,
-              :backward_shift
+              :date_used
 
    def initialize
      @shifts = nil
      @encrypted_strings = nil
-     @final_encryption = nil
      @key_used = nil
      @date_used = nil
-     # @backward_shift = nil
    end
 
    def receives_shifts(shift_generator)
@@ -33,17 +29,6 @@ class Enigma
    # end
 
 
-
-  def decrypt_strings
-    results = []
-    encrypted_message_to_array.each_with_index do |letter, index|
-      shift = @shifts.values[index % 4]
-      current_index = alphabet.find_index(letter)
-      original_letter = alphabet[(current_index - shift) % alphabet.length]
-      results << original_letter
-    end
-    results.join
-  end
 
 
 
@@ -80,12 +65,29 @@ class Enigma
   end
 
   def decrypt(ciphertext, key, date = Date.today.strftime("%d%m%y").to_i)
-    # if date != nil
-    #   @backward_shift = generate_shifts_from_args(key, date)
-    # # else
-    # #   @backward_shift = decrypt_shifts_from_args(key, Date.today.strftime("%d%m%y").to_i)
-    # end
-    decryption_feedback
+    @key_used = key
+    @date_used = date
+    decrypt_strings(ciphertext)
+    decryption_info(ciphertext)
+  end
+
+  def decrypt_strings(ciphertext)
+    results = []
+    message_to_array(ciphertext).each_with_index do |letter, index|
+      shift = @shifts.values[index % 4]
+      current_index = alphabet.find_index(letter)
+      original_letter = alphabet[(current_index - shift) % alphabet.length]
+      results << original_letter
+    end
+    results.join
+  end
+
+  def decryption_info(ciphertext)
+    {
+      decryption: decrypt_strings(ciphertext),
+             key: @key_used,
+            date: @date_used
+    }
   end
 
   def encryption_info
@@ -96,31 +98,4 @@ class Enigma
     }
 
   end
-
-  def encrypt_without_key_date
-    @shifts = generate_shifts
-    @key_used = random_key_used
-    @date_used = todays_date
-  end
-
-
-
-  def encrypted_message_to_array
-    @final_encryption.split(//)
-  end
-
-  def decryption_feedback
-    decrypt_strings
-    decryption_info
-  end
-
-  def decryption_info
-    {
-      decryption: decrypt_strings,
-             key: @key_used,
-            date: @date_used
-    }
-  end
-
-
 end

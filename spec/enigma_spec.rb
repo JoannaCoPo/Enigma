@@ -109,7 +109,7 @@ RSpec.describe Enigma do
     expect(enigma.join_strings).to eq("keder ohulw")
   end
 
-  it 'it encrypts message' do
+  xit 'it encrypts message' do
     enigma = Enigma.new
     message1 = Message.new("Hello World")
     shift_generator = ShiftGenerator.new
@@ -133,7 +133,7 @@ RSpec.describe Enigma do
     expect(enigma.encrypt(message, "02715", "040895")).to eq(expected)
   end
 
-  xit 'it decrypts' do                  #returns hash
+  it 'it decrypts' do                  #returns hash
     enigma = Enigma.new
     message1 = Message.new("Hello World")
     shift_generator = ShiftGenerator.new
@@ -149,8 +149,7 @@ RSpec.describe Enigma do
     shift_generated = shift_generator.final_shifts
     enigma.receives_shifts(shift_generated)
     message  = message1.message_to_encrypt
-    enigma.add_message(message)
-    enigma.encrypt_strings
+    # enigma.encrypt_strings
     decrypted = enigma.decrypt("keder ohulw", "02715", "040895")
     expected = {decryption: "hello world",
                 key: "02715",
