@@ -55,6 +55,17 @@ class Enigma
     @encrypted_strings = results
   end
 
+  def decrypt_strings
+    results = []
+    encrypted_message_to_array.each_with_index do |letter, index|
+      shift = @shifts.values[index % 4]
+      current_index = alphabet.find_index(letter)
+      original_letter = alphabet[(current_index - shift) % alphabet.length]
+      results << original_letter
+    end
+    results.join
+  end
+
   def join_strings
     @encrypted_strings.join
   end
@@ -64,11 +75,19 @@ class Enigma
     if key && date != nil
       @key_used = key
       @date_used = date
-      @shifts = generate_shifts_from_args(key, date)
     else
       encrypt_without_key_date
     end
     encryption_feedback
+  end
+
+  def decrypt(ciphertext, key, date = Date.today.strftime("%d%m%y").to_i)
+    # if date != nil
+    #   @backward_shift = generate_shifts_from_args(key, date)
+    # # else
+    # #   @backward_shift = decrypt_shifts_from_args(key, Date.today.strftime("%d%m%y").to_i)
+    # end
+    decryption_feedback
   end
 
   def encryption_info
@@ -92,15 +111,6 @@ class Enigma
     encryption_info
   end
 
-  def decrypt(ciphertext, key, date = Date.today.strftime("%d%m%y").to_i)
-    if date != nil
-      @backward_shift = generate_shifts_from_args(key, date)
-    # else
-    #   @backward_shift = decrypt_shifts_from_args(key, Date.today.strftime("%d%m%y").to_i)
-    end
-    decryption_feedback
-  end
-
   def encrypted_message_to_array
     @final_encryption.split(//)
   end
@@ -118,15 +128,5 @@ class Enigma
     }
   end
 
-  def decrypt_strings
-    results = []
-    encrypted_message_to_array.each_with_index do |letter, index|
-      shift = encryption_shifts.values[index % 4]
-      current_index = alphabet.find_index(letter)
-      original_letter = alphabet[(current_index - shift) % alphabet.length]
-      results << original_letter
-    end
-    results.join
-  end
 
 end

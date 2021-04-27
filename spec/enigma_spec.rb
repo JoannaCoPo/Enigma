@@ -70,7 +70,6 @@ RSpec.describe Enigma do
   it 'it encrypts message' do
     enigma = Enigma.new
     message1 = Message.new("Hello World")
-    enigma = Enigma.new
     shift_generator = ShiftGenerator.new
     key_generator = KeyGenerator.new
     offset_generator = OffsetGenerator.new
@@ -89,51 +88,71 @@ RSpec.describe Enigma do
     expect(enigma.encrypt_strings).to eq(expected)
   end
 
-  xit 'it returns encrypted charters to one string' do
+  it 'it returns encrypted characters to one string' do
     enigma = Enigma.new
-    shift1 = Shift.new
     message1 = Message.new("Hello World")
-    shift1.generate_shifts
-    enigma.add_shifts(shift1)
-    enigma.add_message(message1)
+    shift_generator = ShiftGenerator.new
+    key_generator = KeyGenerator.new
+    offset_generator = OffsetGenerator.new
+    key_generator.generate_keys_from_args("02715")
+    keys_generated = key_generator.keys_generated
+    shift_generator.receive_keys(keys_generated)
+    offset_generator.generate_offsets_from_args("040895")
+    offsets_generated = offset_generator.offsets_generated
+    shift_generator.receive_offsets(offsets_generated)
+    shift_generator.generate_shifts
+    shift_generated = shift_generator.final_shifts
+    enigma.receives_shifts(shift_generated)
+    message  = message1.message_to_encrypt
+    enigma.add_message(message)
     enigma.encrypt_strings
-    expect(enigma.join_strings).to be_an_instance_of(String)
-    expect(enigma.join_strings.length).to eq(11)
+    expect(enigma.join_strings).to eq("keder ohulw")
   end
 
-  xit 'it encrypts message' do
+  it 'it encrypts message' do
     enigma = Enigma.new
-    # shift1 = Shift.new
     message1 = Message.new("Hello World")
-    message_string = message1.message_to_encrypt
-    # key = enigma.key_string
-    # date = enigma.date_string
-    # shift1.generate_shifts
-    # enigma.add_shifts(shift1)
-    # enigma.add_message(message1)
-    # enigma.encrypt_strings
-    expected =  {
-        encryption: "keder ohulw",
-        key: "02715",
-        date: "040895"
-      }
-      # require "pry"; binding.pry
-    # expect(enigma.encrypt(message_string).length).to eq(11)
-    # expect(enigma.encrypt(message_string, "02715", "040895")).to eq("keder ohulw")
-    expect(enigma.encrypt(message_string, "02715", "040895")).to eq(expected)
-
+    shift_generator = ShiftGenerator.new
+    key_generator = KeyGenerator.new
+    offset_generator = OffsetGenerator.new
+    key_generator.generate_keys_from_args("02715")
+    keys_generated = key_generator.keys_generated
+    shift_generator.receive_keys(keys_generated)
+    offset_generator.generate_offsets_from_args("040895")
+    offsets_generated = offset_generator.offsets_generated
+    shift_generator.receive_offsets(offsets_generated)
+    shift_generator.generate_shifts
+    shift_generated = shift_generator.final_shifts
+    enigma.receives_shifts(shift_generated)
+    message  = message1.message_to_encrypt
+    enigma.add_message(message)
+    enigma.encrypt_strings
+    expected = {
+                encryption: "keder ohulw",
+                       key: "02715",
+                      date: "040895"
+               }
+    expect(enigma.encrypt(message, "02715", "040895")).to eq(expected)
   end
 
-  xit 'it decrypts' do                  #returns hash
+  it 'it decrypts' do                  #returns hash
     enigma = Enigma.new
-    enigma = Enigma.new
-    # shift1 = Shift.new
     message1 = Message.new("Hello World")
-    message_string = message1.message_to_encrypt
-    enigma.encrypt(message_string, "02715", "040895")
-    #MESSAGE + optional arg(key and date)
-    #if no key, generate random key
-    #date == optional, if no date, use today's day
+    shift_generator = ShiftGenerator.new
+    key_generator = KeyGenerator.new
+    offset_generator = OffsetGenerator.new
+    key_generator.generate_keys_from_args("02715")
+    keys_generated = key_generator.keys_generated
+    shift_generator.receive_keys(keys_generated)
+    offset_generator.generate_offsets_from_args("040895")
+    offsets_generated = offset_generator.offsets_generated
+    shift_generator.receive_offsets(offsets_generated)
+    shift_generator.generate_shifts
+    shift_generated = shift_generator.final_shifts
+    enigma.receives_shifts(shift_generated)
+    message  = message1.message_to_encrypt
+    enigma.add_message(message)
+    enigma.encrypt_strings
     decrypted = enigma.decrypt("keder ohulw", "02715", "040895")
     expected = {decryption: "hello world",
                 key: "02715",
