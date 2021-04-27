@@ -28,17 +28,4 @@ class ShiftGenerator
                       d: keys[:d] + offsets[:d]
                     }
   end
-
-# => when key and date are include
-  def generate_shifts_from_args(key, date)
-    keys = generate_keys_from_args(key)
-    offsets = generate_offsets_from_args(date)
-    @final_shifts =
-                    {
-                      a: keys[:a] + offsets[:a],
-                      b: keys[:b] + offsets[:b],
-                      c: keys[:c] + offsets[:c],
-                      d: keys[:d] + offsets[:d]
-                    }
-  end
 end

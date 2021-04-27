@@ -16,21 +16,9 @@ class Enigma
      @shifts = shift_generator
    end
 
-   # def date_string
-   #   @shifts.date_used
-   # end
-
    def alphabet
      ("a".."z").to_a << " "
    end
-
-   # def encryption_shifts
-   #   @shifts
-   # end
-
-
-
-
 
   def encrypt(message, key = nil, date = Date.today.strftime("%d%m%y").to_i)
     key ||= KeyGenerator.new.create_random_number

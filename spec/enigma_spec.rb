@@ -31,17 +31,6 @@ RSpec.describe Enigma do
     expect(enigma.shifts).to eq(expected)
   end
 
-  # it 'has tools for encryption' do
-  #   enigma = Enigma.new
-  #   shift1 = Shift.new
-  #   shift1.generate_shifts
-  #   enigma.add_shifts(shift1)
-  #   expect(enigma.key_string).to be_an_instance_of(String)
-  #   expect(enigma.key_string.length).to eq(5)
-  #   expect(enigma.date_string).to be_an_instance_of(String)
-  #   expect(enigma.date_string.length).to eq(6)
-  # end
-
   xit 'has a character set' do
     enigma = Enigma.new
     expected = ["a", "b", "c", "d", "e", "f", "g", "h", "i",

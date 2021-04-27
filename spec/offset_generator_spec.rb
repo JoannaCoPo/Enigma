@@ -8,12 +8,6 @@ RSpec.describe OffsetGenerator do
     expect(offset_generator).to be_an_instance_of(OffsetGenerator)
   end
 
-  it 'has todays date' do
-    allow(Date).to receive(:today).and_return(Date.new(2021,4,23))
-    offset_generator = OffsetGenerator.new
-    expect(offset_generator.todays_date).to eq("230421")
-  end
-
   it 'does math for offset preparation' do
     allow(Date).to receive(:today).and_return(Date.new(1995,8,4))
     offset_generator = OffsetGenerator.new
