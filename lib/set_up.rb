@@ -5,7 +5,6 @@ require_relative 'shift_generator'
 require_relative 'key_generator'
 require_relative 'offset_generator'
 
-# class SetUp
 @enigma = Enigma.new
 @message1 = Message.new("Hello World")
 @shift_generator = ShiftGenerator.new
@@ -22,9 +21,8 @@ require_relative 'offset_generator'
     @shift_generator.generate_shifts
     shift_generated = @shift_generator.final_shifts
     @enigma.receives_shifts(shift_generated)
-    message = @message1.message_to_encrypt
-    # @enigma.add_message(message)
-    @enigma.encrypt(message, "02715", "040895")
+    # message = @message1.message_to_encrypt
+    # @enigma.encrypt(message, "02715", "040895")
   end
 
-puts initiate_encryption
+  initiate_encryption

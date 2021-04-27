@@ -34,14 +34,11 @@ class Enigma
     message_to_array(message).each_with_index do |letter, index|
       shift = @shifts.values[index % 4]
       original_index = alphabet.find_index(letter)
+      # require "pry"; binding.pry
       new_letter = alphabet[(shift + original_index) % alphabet.length]
       results << new_letter
     end
     @encrypted_strings = results
-  end
-
-  def message_to_array(message)
-    message.downcase.split(//)
   end
 
   def decrypt(ciphertext, key, date = Date.today.strftime("%d%m%y").to_i)
@@ -76,5 +73,9 @@ class Enigma
              key: @key_used,
             date: @date_used
     }
+  end
+
+  def message_to_array(message)
+    message.downcase.split(//)
   end
 end
