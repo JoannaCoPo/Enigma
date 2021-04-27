@@ -1,79 +1,13 @@
-# Enigma
+# SELF EVALUATION  
 
-alphabet = ("a".."z").to_a << " "
+*Functionality*
+  I would give myself a 2.8 - I believe that most functionality is there though it possible that a sneaky edge care or even typo slipped by me  
 
-4 shifts: A, B, C, D
+*Object Oriented Programming*  
+  2.5 - I think I am improving in this area though it is still a struggle for me. The organization/structure of this project by far took most of my time. In hindsight, I think I overcomplicated, which ate up valuable time that could have been better used (making more robust tests, etc.)
 
-# Enigma Class
-# Create an Enigma class with the following methods:
-#
-# Enigma
-#encrypt(message, key, date)
-# The encrypt method takes a message String as an argument. It can optionally take a Key and Date as arguments to use for encryption. If the key is not included, generate a random key. If the date is not included, use today’s date.
+*Ruby Conventions and Mechanic*
+  2.9 - I am very proud of what I was able to put together between research and using pry. However, there are a few instances that I followed syntax examples on stackoverflow, and I'm not sure I could replicate the same logic on my own yet.
 
-# The encrypt method returns a hash with three keys:
-  encrypted = {encryption: "encrypted string",
-                         key: "00000",
-                        date: "DDMMYY"
-                 }
-# :encryption => the encrypted String
-alphabet = ("a".."z").to_a << " "
-ciphertext = alphabet.rotate(shift)[orig_index]
-
-# :key => the key used for encryption as a String
-numbers = [0 , 1, 2, 3, 4, 5, 6, 7, 8, 9]
-numbers.sample(5)
-# :date => the date used for encryption as a String in the form DDMMYY
-today's day: time.strftime("%d%m%y").to_i
-http://strftime.net/
-
-# Enigma#decrypt(ciphertext, key, date)
-# The decrypt method takes a ciphertext String and the Key used for encryption as arguments. The decrypt method can optionally take a date as the third argument. If no date is given, this method should use today’s date for decryption.
-#
-# The decrypt method returns a hash with three keys:
-#
-# :decryption => the decrypted String
-  alphabet.rotate(0)[orig_index]
-# :key => the key used for decryption as a String
-  (000000)
-# :date => the date used for decryption as a String in the form DDMMYY
-  (DDMMYY)
-_____________________________________
-  pry(main)> require 'date'
-#=> true
-
-pry(main)> require './lib/enigma'
-#=> true
-
-pry(main)> enigma = Enigma.new
-#=> #<Enigma:0x00007ff90f24cb78...>
-
-# encrypt a message with a key and date
-pry(main)> enigma.encrypt("hello world", "02715", "040895")
-#=>
-#   {
-#     encryption: "keder ohulw",
-#     key: "02715",
-#     date: "040895"
-#   }
-
-# decrypt a message with a key and date
-pry(main) > enigma.decrypt("keder ohulw", "02715", "040895")
-#=>
-#   {
-#     decryption: "hello world",
-#     key: "02715",
-#     date: "040895"
-#   }
-
-# encrypt a message with a key (uses today's date)
-pry(main)> encrypted = enigma.encrypt("hello world", "02715")
-#=> # encryption hash here
-
-#decrypt a message with a key (uses today's date)
-pry(main) > enigma.decrypt(encrypted[:encryption], "02715")
-#=> # decryption hash here
-
-# encrypt a message (generates random key and uses today's date)
-pry(main)> enigma.encrypt("hello world")
-#=> # encryption hash here
+*Test Driven Development*
+  2.8 - while not required the tests would have felt more robust if I had utilized mock/stubs more (I only stubbed to test Date). I generally don't use def_setup so the test blocks are super bulky, though I don't know if that's the norm.
